@@ -9,7 +9,9 @@ public class Names {
       giveIntro();
       //form searchCombo with name+space+sex (uppercase)
       System.out.print("name? ");
-      String name = console.nextLine().toUpperCase();
+      String name1 = console.nextLine();
+      String s1 = name1.substring(0, 1).toUpperCase();
+      String name = (s1 + name1.substring(1));
       System.out.print("sex (M or F)? ");
       String sex = console.nextLine().toUpperCase();
       String searchCombo = name + " " + sex;      
@@ -36,7 +38,7 @@ public class Names {
    // return line if found; return empty if not found
    public static String find(Scanner input, String searchCombo) {
       while (input.hasNextLine()) {
-         String line = input.nextLine().toUpperCase();
+         String line = input.nextLine();
          //format token, and compare token based with search combo
          String dataCombo = tokenFormat(line);
          if (dataCombo.startsWith(searchCombo)) {
@@ -71,16 +73,24 @@ public class Names {
       g.setColor(Color.RED);
       int rank1 = 0;
       int rank2 = 0;
+      int yCoord = 0;
       Scanner data = new Scanner(line);
       while (data.hasNext()) {
          String throwAway = data.next();
          String throwAway2 = data.next();          
-         for (int i = 0; i < 14; i++) {
+         for (int i = 0; i < 14; i++) {                                                                                                                                                                                                                                                                                                                                                                                                               
             rank1 = data.nextInt();
-            g.drawString(searchCombo, 0 + 70 * i, Math.round (rank1 / 2) + 25); 
+            if (rank1 % 2 == 0 && rank1 != 0) {
+            yCoord = (rank1 - 2) / 2 + 25;
+            } else if (rank1 % 2 == 1) {
+            yCoord = (rank1 - 1) / 2 + 25;  
+            } else {
+            yCoord = 525;
+            }
+            
+            g.drawString(searchCombo + " " + rank1, 0 + 70 * i,  yCoord); 
             //rank2 = data.nextInt();
-            //g.drawLine(0 + 70 * i, Math.round (rank1 / 2) + 25, 0 + 70 *(i + 1), Math.round (rank2 / 2) + 25);
-         
+            //g.drawLine(0 + 70 * i, Math.round (rank1 / 2) + 25, 0 + 70 *(i + 1), Math.round (rank2 / 2) + 25);         
          }
       }
    }
