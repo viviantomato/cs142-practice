@@ -14,7 +14,7 @@ public class Names {
       String name = (s1 + name1.substring(1));
       System.out.print("sex (M or F)? ");
       String sex = console.nextLine().toUpperCase();
-      String searchCombo = name + " " + sex;      
+      String searchCombo = name + " " + sex;
       //find searchCombo in input file. If there is a matching output, construct a drawing panel.
       //If there is no matching output, print not found message.
       String line = find(input, searchCombo);
@@ -48,7 +48,7 @@ public class Names {
       return "";
    }
    
-   //format data as datacombo
+   //format data as datacombo to match searchcombo
    public static String tokenFormat(String line) {
       Scanner data = new Scanner(line);
       String nameFromData = data.next();
@@ -62,36 +62,38 @@ public class Names {
       DrawingPanel panel = new DrawingPanel(70*14, 550);
       panel.setBackground(Color.WHITE);
       Graphics g = panel.getGraphics();
+      //draw outer frame
       g.drawLine(0, 25, 14 * 70, 25);
+      //draw 14 lines for each section
       g.drawLine(0, 550 - 25, 14 * 70, 550 - 25);
       for (int i = 0; i < 14; i++) {
          g.drawLine(0 + 70 * i, 0, 0 + 70 * i, 550);
       }
+      //draw strings for each decade
       for (int i = 0; i < 14; i++) {
          g.drawString("" + (1880 + i * 10), 0 + i * 70, 550);
-      }      
+      }
+      //draw strings for name and sex and rank in red
       g.setColor(Color.RED);
       int rank1 = 0;
       int rank2 = 0;
       int yCoord = 0;
-      Scanner data = new Scanner(line);
-      while (data.hasNext()) {
-         String throwAway = data.next();
-         String throwAway2 = data.next();          
-         for (int i = 0; i < 14; i++) {                                                                                                                                                                                                                                                                                                                                                                                                               
-            rank1 = data.nextInt();
-            if (rank1 % 2 == 0 && rank1 != 0) {
+      Scanner data = new Scanner(line);     
+      String throwAway = data.next();
+      String throwAway2 = data.next();
+      for (int i = 0; i < 14; i++) {
+         rank1 = data.nextInt();
+         if (rank1 % 2 == 0 && rank1 != 0) {
             yCoord = (rank1 - 2) / 2 + 25;
-            } else if (rank1 % 2 == 1) {
-            yCoord = (rank1 - 1) / 2 + 25;  
-            } else {
+         } else if (rank1 % 2 == 1) {
+            yCoord = (rank1 - 1) / 2 + 25;
+         } else {
             yCoord = 525;
-            }
-            
-            g.drawString(searchCombo + " " + rank1, 0 + 70 * i,  yCoord); 
-            //rank2 = data.nextInt();
-            //g.drawLine(0 + 70 * i, Math.round (rank1 / 2) + 25, 0 + 70 *(i + 1), Math.round (rank2 / 2) + 25);         
          }
+         System.out.println(yCoord);
+         g.drawString(searchCombo + " " + rank1, 0 + 70 * i,  yCoord);
+         //rank2 = data.nextInt();
+         //g.drawLine(0 + 70 * i, Math.round (rank1 / 2) + 25, 0 + 70 *(i + 1), Math.round (rank2 / 2) + 25);
       }
-   }
+   }   
 }
