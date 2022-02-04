@@ -3,8 +3,12 @@ import java.util.*;
 import java.awt.*;
 
 public class Names {
+   public static final int numOfDecades   = 10;
+   public static final int startingYear   = 1880;
+   public static final int widthPerDecade = 70;
+   
    public static void main(String[] args) throws FileNotFoundException {
-      Scanner input = new Scanner(new File("names.txt"));
+      Scanner input = new Scanner(new File("names2.txt"));
       Scanner console = new Scanner(System.in);
       giveIntro();
       //form searchCombo with name+space+sex (uppercase)
@@ -30,7 +34,7 @@ public class Names {
       System.out.println("This program allows you to search through the");
       System.out.println("data from the Social Security Administration");
       System.out.println("to see how popular a particular name has been");
-      System.out.println("since 1880.");
+      System.out.println("since " + startingYear + " .");
       System.out.println();
    }
    
@@ -59,19 +63,19 @@ public class Names {
    
    //construct a DrawingPanel, passing line as parameter
    public static void drawGraph (String line, String searchCombo) {
-      DrawingPanel panel = new DrawingPanel(70*14, 550);
+      DrawingPanel panel = new DrawingPanel(widthPerDecade*14, 550);
       panel.setBackground(Color.WHITE);
       Graphics g = panel.getGraphics();
       //draw outer frame
-      g.drawLine(0, 25, 14 * 70, 25);
+      g.drawLine(0, 25, numOfDecades * widthPerDecade, 25);
       //draw 14 lines for each section
-      g.drawLine(0, 550 - 25, 14 * 70, 550 - 25);
-      for (int i = 0; i < 14; i++) {
-         g.drawLine(0 + 70 * i, 0, 0 + 70 * i, 550);
+      g.drawLine(0, 550 - 25, numOfDecades * widthPerDecade, 550 - 25);
+      for (int i = 0; i < numOfDecades; i++) {
+         g.drawLine(0 + widthPerDecade * i, 0, 0 + widthPerDecade * i, 550);
       }
       //draw strings for each decade
-      for (int i = 0; i < 14; i++) {
-         g.drawString("" + (1880 + i * 10), 0 + i * 70, 550);
+      for (int i = 0; i < numOfDecades; i++) {
+         g.drawString("" + (startingYear + i * 10), 0 + i * widthPerDecade, 550);
       }
       //draw strings for name and sex and rank in red
       g.setColor(Color.RED);
@@ -86,12 +90,12 @@ public class Names {
       rank1 = data.nextInt();
       yCoord1 = convertToYCoord(rank1);
       g.drawString(searchCombo + " " + rank1, 0,  yCoord1);
-      //print redline and string from the second, store the previous y coordinate 
-      for (int i = 1; i < 14; i++) {
+      //print redline and string from the second, store the previous y coordinate
+      for (int i = 1; i < numOfDecades; i++) {
          rank2 = data.nextInt();
-         yCoord2 = convertToYCoord(rank2);         
-         g.drawString(searchCombo + " " + rank2, 0 + 70 * i,  yCoord2);
-         g.drawLine(70 *(i - 1), yCoord1, 70 * i,  yCoord2);
+         yCoord2 = convertToYCoord(rank2);
+         g.drawString(searchCombo + " " + rank2, 0 + widthPerDecade * i,  yCoord2);
+         g.drawLine(widthPerDecade *(i - 1), yCoord1, widthPerDecade * i,  yCoord2);
          yCoord1 = yCoord2;
       }
    }
