@@ -77,23 +77,33 @@ public class Names {
       g.setColor(Color.RED);
       int rank1 = 0;
       int rank2 = 0;
-      int yCoord = 0;
-      Scanner data = new Scanner(line);     
+      int yCoord1 = 0;
+      int yCoord2 = 0;
+      Scanner data = new Scanner(line);
       String throwAway = data.next();
       String throwAway2 = data.next();
-      for (int i = 0; i < 14; i++) {
-         rank1 = data.nextInt();
-         if (rank1 % 2 == 0 && rank1 != 0) {
-            yCoord = (rank1 - 2) / 2 + 25;
-         } else if (rank1 % 2 == 1) {
-            yCoord = (rank1 - 1) / 2 + 25;
-         } else {
-            yCoord = 525;
-         }
-         System.out.println(yCoord);
-         g.drawString(searchCombo + " " + rank1, 0 + 70 * i,  yCoord);
-         //rank2 = data.nextInt();
-         //g.drawLine(0 + 70 * i, Math.round (rank1 / 2) + 25, 0 + 70 *(i + 1), Math.round (rank2 / 2) + 25);
+      //print the first string, get original (x1,y1)
+      rank1 = data.nextInt();
+      yCoord1 = convertToYCoord(rank1);
+      g.drawString(searchCombo + " " + rank1, 0,  yCoord1);
+      //print redline and string from the second, store the previous y coordinate 
+      for (int i = 1; i < 14; i++) {
+         rank2 = data.nextInt();
+         yCoord2 = convertToYCoord(rank2);         
+         g.drawString(searchCombo + " " + rank2, 0 + 70 * i,  yCoord2);
+         g.drawLine(70 *(i - 1), yCoord1, 70 * i,  yCoord2);
+         yCoord1 = yCoord2;
       }
-   }   
+   }
+   public static int convertToYCoord (int rank) {
+      int yCoord = 0;
+      if (rank  % 2 == 0 && rank != 0) {
+         yCoord = (rank - 2) / 2 + 25;
+      } else if (rank % 2 == 1) {
+         yCoord = (rank - 1) / 2 + 25;
+      } else {
+         yCoord = 525;
+      }
+      return yCoord;
+   }
 }
