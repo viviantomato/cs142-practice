@@ -3,19 +3,18 @@ import java.util.*;
 import java.awt.*;
 
 public class Names {
-   public static final int numOfDecades   = 10;
+   public static final int numOfDecades   = 14;
    public static final int startingYear   = 1880;
    public static final int widthPerDecade = 70;
    
    public static void main(String[] args) throws FileNotFoundException {
-      Scanner input = new Scanner(new File("names2.txt"));
+      Scanner input = new Scanner(new File("names.txt"));
       Scanner console = new Scanner(System.in);
       giveIntro();
-      //form searchCombo with name+space+sex (uppercase)
+      //form searchCombo with name+space+sex (uppercase), read from user output.
       System.out.print("name? ");
       String name1 = console.nextLine();
-      String s1 = name1.substring(0, 1).toUpperCase();
-      String name = (s1 + name1.substring(1));
+      String name = (name1.substring(0, 1).toUpperCase() + name1.substring(1));
       System.out.print("sex (M or F)? ");
       String sex = console.nextLine().toUpperCase();
       String searchCombo = name + " " + sex;
@@ -27,8 +26,7 @@ public class Names {
       } else {
          System.out.println("name/sex combination not found");
       }
-   }
-   
+   }   
    // introduces the purpose of the program to the user
    public static void giveIntro() {
       System.out.println("This program allows you to search through the");
@@ -36,8 +34,7 @@ public class Names {
       System.out.println("to see how popular a particular name has been");
       System.out.println("since " + startingYear + " .");
       System.out.println();
-   }
-   
+   }   
    // searches for formatted data that starts with searchCombo
    // return line if found; return empty if not found
    public static String find(Scanner input, String searchCombo) {
@@ -50,8 +47,7 @@ public class Names {
          }
       }
       return "";
-   }
-   
+   }  
    //format data as datacombo to match searchcombo
    public static String tokenFormat(String line) {
       Scanner data = new Scanner(line);
@@ -59,8 +55,7 @@ public class Names {
       String sexFromData = data.next();
       String dataCombo = nameFromData + " " + sexFromData;
       return dataCombo;
-   }
-   
+   }   
    //construct a DrawingPanel, passing line as parameter
    public static void drawGraph (String line, String searchCombo) {
       DrawingPanel panel = new DrawingPanel(widthPerDecade*14, 550);
@@ -68,7 +63,7 @@ public class Names {
       Graphics g = panel.getGraphics();
       //draw outer frame
       g.drawLine(0, 25, numOfDecades * widthPerDecade, 25);
-      //draw 14 lines for each section
+      //draw line for each section
       g.drawLine(0, 550 - 25, numOfDecades * widthPerDecade, 550 - 25);
       for (int i = 0; i < numOfDecades; i++) {
          g.drawLine(0 + widthPerDecade * i, 0, 0 + widthPerDecade * i, 550);
@@ -77,7 +72,7 @@ public class Names {
       for (int i = 0; i < numOfDecades; i++) {
          g.drawString("" + (startingYear + i * 10), 0 + i * widthPerDecade, 550);
       }
-      //draw strings for name and sex and rank in red
+      //draw strings for name and sex and rank in red, read from line
       g.setColor(Color.RED);
       int rank1 = 0;
       int rank2 = 0;
@@ -86,7 +81,7 @@ public class Names {
       Scanner data = new Scanner(line);
       String throwAway = data.next();
       String throwAway2 = data.next();
-      //print the first string, get original (x1,y1)
+      //print the first string, get original (x1,y1), draw string original
       rank1 = data.nextInt();
       yCoord1 = convertToYCoord(rank1);
       g.drawString(searchCombo + " " + rank1, 0,  yCoord1);
@@ -99,6 +94,7 @@ public class Names {
          yCoord1 = yCoord2;
       }
    }
+   //convert rank output to Y coordinate 
    public static int convertToYCoord (int rank) {
       int yCoord = 0;
       if (rank  % 2 == 0 && rank != 0) {
