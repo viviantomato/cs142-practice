@@ -6,6 +6,7 @@ import java.io.*;
 //check coding style
 
 public class Personality {
+   //main method reads from original data, capturing name and line 
     public static void main(String[] args) throws FileNotFoundException {
         Scanner input = new Scanner (new File ("personality.txt"));
         while (input.hasNextLine()) {
@@ -13,43 +14,62 @@ public class Personality {
             String line = input.nextLine();
             System.out.println(name); //output1
             System.out.println(line);
-            int[] countAResults = countResults(line);            
-            System.out.println(Arrays.toString(countAResults));
+            //int[] countAResults = bPecent(line);
+            double[] total = bPecent(line);            
+            System.out.println(Arrays.toString(total));
             //System.out.println(Arrays.toString(countBResults));
         }
     }
     
-    public static int[] countResults(String line) {
+    //this method reads from line and pinpoint the index of the character to test in four catagories
+    public static double[] bPecent(String line) {
         int[] countAResults = new int [4]; 
         int[] countBResults = new int [4];
-        int[] dashCount = new int [4];
-        for (int i = 0; i < 4; i++) { // loop 0-3 for new array
-            for (int j = 0; j < 70 / 7; j++) { //loop 0-9 for index in line
+        double[] total = new double [4]; 
+        for (int i = 0; i < 4; i++) {  // loop 0-3 for new array
+            for (int j = 0; j < 70 / 7; j++) { // loop 0-9 for index in line
                 if (i == 0) {
-                    int index = j * 7;
-                    char next = line.charAt(index); // read char from index position
-                    test (next, i, countAResults, countBResults, dashCount); // test char for a, b, - and increase counter
+                    char next = line.charAt(j * 7); // read char from calculated index position
+                    test (next, i, countAResults, countBResults); // test char for a, b, - and increase counter
                 } else {                   
-                    int index = j * 7 + 2 * i - 1;
-                    char next = line.charAt(index);
-                    test (next, i, countAResults, countBResults, dashCount);
-                    int index2 = j * 7 + 2 * i;
-                    char next2 = line.charAt(index2);
-                    test (next2, i, countAResults, countBResults, dashCount);
+                    char next = line.charAt(j * 7 + 2 * i - 1);  //1st
+                    test (next, i, countAResults, countBResults);
+                    char next2 = line.charAt(j * 7 + 2 * i);  //2nd
+                    test (next2, i, countAResults, countBResults);
                 }
             }
+            total[i] = (double) countBResults[i] / (countAResults[i] + countBResults[i]);
+            //double bPercent = 
         }
-        return countAResults; //how to return three array
+        
+      
+    //bPercent = countBResults[] / b + a;
+     
+    //format print percent, new array
+    
+        return total; // return array of percentage directly
  
     }
-    public static void test(char next, int i, int[] countAResults, int[] countBResults, int[] dashCount) {
-         
+    
+    //this method tests the character and calculate three counter accordingly
+    public static void test(char next, int i, int[] countAResults, int[] countBResults) {         
          if (next == 'a' || next == 'A') {   // ' ' single quote for char
          countAResults[i] ++;
          } else if (next == 'b' || next == 'B') {
           countBResults[i] ++;
-         } else {
-          dashCount[i] ++;
+         //} else {
+          //dashCount[i] ++;
          }    
     }
+    
+
+    
+    //Print Personality type, as String?
+//     [0] (bPecent > 50%) return I; (bPecent < 50%) return E; else return X;
+//     [1] (bPecent > 50%) return N; (bPecent < 50%) return S; else return X;
+//     [2] (bPecent > 50%) return F; (bPecent < 50%) return T; else return X;
+//     [3] (bPecent > 50%) return P; (bPecent < 50%) return J; else return X;
+//    
+   
+    
 }
