@@ -15,17 +15,17 @@ public class Personality {
             System.out.println(name); //output1
             System.out.println(line);
             //int[] countAResults = bPecent(line);
-            double[] total = bPecent(line);            
-            System.out.println(Arrays.toString(total));
+            int[] countBPercent = bPecent(line);            
+            System.out.println(Arrays.toString(countBPercent));
             //System.out.println(Arrays.toString(countBResults));
         }
     }
     
     //this method reads from line and pinpoint the index of the character to test in four catagories
-    public static double[] bPecent(String line) {
+    public static int[] bPecent(String line) {
         int[] countAResults = new int [4]; 
         int[] countBResults = new int [4];
-        double[] total = new double [4]; 
+        int[] countBPercent = new int [4]; 
         for (int i = 0; i < 4; i++) {  // loop 0-3 for new array
             for (int j = 0; j < 70 / 7; j++) { // loop 0-9 for index in line
                 if (i == 0) {
@@ -38,8 +38,8 @@ public class Personality {
                     test (next2, i, countAResults, countBResults);
                 }
             }
-            total[i] = (double) countBResults[i] / (countAResults[i] + countBResults[i]);
-            //double bPercent = 
+            countBPercent[i] = (int) Math.round((double) countBResults[i] / (countAResults[i] + countBResults[i]) * 100);
+             
         }
         
       
@@ -47,7 +47,7 @@ public class Personality {
      
     //format print percent, new array
     
-        return total; // return array of percentage directly
+        return countBPercent; // return array of percentage directly
  
     }
     
