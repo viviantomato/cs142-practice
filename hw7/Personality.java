@@ -8,22 +8,26 @@ import java.io.*;
 public class Personality {
     //main method reads from original data, capturing name and line
     public static void main(String[] args) throws FileNotFoundException {
-        Scanner input = new Scanner (new File ("personality.txt"));
+        Scanner input = new Scanner (new File ("bigdata.txt"));
         while (input.hasNextLine()) {
             String name = input.nextLine();
             String line = input.nextLine();
-            System.out.println(name + ": ");  
-            //System.out.println(line);
-            //int[] countAResults = bPecent(line);
+            System.out.print(name + ": ");  
             int[] countBPercent = bPecent(line);
-            System.out.println(Arrays.toString(countBPercent));
-            //String typeTest = typeTest (countBPercent, i);
-           
-            //System.out.println(Arrays.toString(countBResults));
+            System.out.print(Arrays.toString(countBPercent));
+            System.out.print(" = " );
+            String[] type = typeTest (countBPercent);
+               for (int k = 0; k < type.length; k++) {
+                  System.out.print(type[k]);
+               }
+            System.out.println();
+            
+            //System.out.println(Arrays.toString(type));
+
         }
     }
     
-    //this method reads from line and pinpoint the index of the character to test in four catagories
+    //this method reads from line and pinpoint the index of the character to test in four catagories, return array of B percentage
     public static int[] bPecent(String line) {
         int[] countANumber = new int [4];
         int[] countBNumber = new int [4];
@@ -40,11 +44,9 @@ public class Personality {
                     testCount (next2, i, countANumber, countBNumber);
                 }
             }
-            countBPercent[i] = (int) Math.round((double) countBNumber[i] / (countANumber[i] + countBNumber[i]) * 100);
-            String s = typeTest(countBPercent, i); // test type for four results
-            System.out.println(s);
+            countBPercent[i] = (int) Math.round((double) countBNumber[i] / (countANumber[i] + countBNumber[i]) * 100);              
         }
-        return countBPercent; // return array of percentage directly
+        return countBPercent; 
     }
     
     //this method tests the character and calculate three counter accordingly
@@ -56,26 +58,41 @@ public class Personality {
         }
     }       
     
-    public static String typeTest (int[] countBPercent, int i) {
- 
-         if (i == 0 && countBPercent[i] > 50) {
-               return "I"; 
-         } else if (i == 0 && countBPercent[i] < 50) {
-               return "E"; 
-         } else if (i == 1 && countBPercent[i] > 50) {
-               return "N"; 
-         } else if (i == 1 && countBPercent[i] < 50) {
-               return "S";  
-         } else if (i == 2 && countBPercent[i] > 50) {
-               return "F"; 
-         } else if (i == 2 && countBPercent[i] < 50) {
-               return "T";  
-         } else if (i == 3 && countBPercent[i] > 50) {
-               return "P"; 
-         } else if (i == 3 && countBPercent[i] < 50) {
-               return "J";
+    public static String[] typeTest (int[] countBPercent) {        
+         String[] type = new String [4];
+         
+         if (countBPercent[0] > 50) {
+               type[0] = "I"; 
+         } else if (countBPercent[0] < 50) {
+               type[0] = "E"; 
          } else {
-            return "X";
-         }   
+            type[0] = "X";     
+         } 
+         
+         if (countBPercent[1] > 50) {
+               type[1] = "N"; 
+         } else if (countBPercent[1] < 50) {
+               type[1] = "S";  
+         } else {
+            type[1] = "X";     
+         } 
+                   
+         if (countBPercent[2] > 50) {
+               type[2] = "F"; 
+         } else if (countBPercent[2] < 50) {
+               type[2] = "T";  
+          } else {
+            type[2] = "X";     
+         } 
+     
+               
+         if (countBPercent[3] > 50) {
+               type[3] = "P"; 
+         } else if (countBPercent[3] < 50) {
+               type[3] = "J";
+         } else {
+            type[3] = "X";
+         } 
+         return type;
     }
 }
