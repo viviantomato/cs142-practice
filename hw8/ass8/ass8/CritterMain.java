@@ -15,7 +15,7 @@ public class CritterMain {
         //frame.add(30, Dog.class);
         //frame.add(30, Pigeon.class);
         frame.add(30, Bear.class);
-        // frame.add(30, Lion.class);
+        frame.add(30, Lion.class);
         // frame.add(30, Giant.class);
         // frame.add(30, Husky.class);
 

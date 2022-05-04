@@ -8,11 +8,12 @@ public class Bear extends Critter {
    public Bear(boolean polar) {
       display = "/";
       count = 0;  
-      this.polar = polar;   
+      this.polar = polar;  //parameter name same as field name, use this to refer to field, shadowing. 
    }
 
     public Color getColor() {
-       if (this.polar) {
+      // refer to this polar from fields
+       if (polar) {
          return Color.WHITE;
        } else {
          return Color.BLACK;
