@@ -1,9 +1,9 @@
 import java.awt.*;
 
-public class Giant extends Critter {
+public class Husky extends Critter {
    private int move;
    
-   public Giant() {
+   public Husky() {
       move = 1;
       getColor();
    }
@@ -23,23 +23,23 @@ public class Giant extends Critter {
    }
    
    public Color getColor() {
-      return Color.GRAY;
+      return Color.PINK;
    }
    
    public String toString() {
-      if(move <= 6) {
-         return "fee";
-      } else if (move <= 12) {
-         return "fie";
-      } else if (move <= 18) {
-         return "foe";
+      if(move <= 3) {
+         return "MonkeyEight";
+      } else if (move <= 6) {
+         return "GoodBobo";
+      } else if (move <= 9) {
+         return "Turtle";
       } else {
-         return "fum";
+         return "CycleBobo";
       }
-      
    }
+   
    public void countMoves(){
-      if (move == 24){
+      if (move == 12){
          move = 1;
       } else {
          move++;

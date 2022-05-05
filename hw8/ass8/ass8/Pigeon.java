@@ -14,31 +14,31 @@ import java.util.*;
 public class Pigeon extends Critter {
    private String display;
    private Random r;
- 
+   
    public Pigeon () {
       display = "*";
       r = new Random();
-   }  
+   }
    
    public Action getMove(CritterInfo info) {
-       
+      
       if(info.getFront() == Neighbor.EMPTY) {
          display = "H";
-         return Action.HOP;                
-          
+         return Action.HOP;
+         
       } else {
-          int turn = r.nextInt(2);
-          if (turn == 0) {
-              display = "L";
-              return Action.LEFT; 
-          } else {
-              display = "R";   
-              return Action.RIGHT; 
-             
+         int turn = r.nextInt(2);
+         if (turn == 0) {
+            display = "L";
+            return Action.LEFT;
+         } else {
+            display = "R";
+            return Action.RIGHT;            
+         }
       }
    }
-}
-      public String toString() {
-         return display;
- }
+   
+   public String toString() {
+      return display;
+   }
 }
