@@ -4,18 +4,20 @@ import java.util.*;
 
 public class Lion extends Critter {
    private Random r;
-   private int move;
    private int count;
-   
+   private Color lionColor;
+    
    
       
    public Lion() {
-      r = new Random();
-      
+      r = new Random();          
+      getColor();  
    }
+
    
    public Action getMove(CritterInfo info) {
       count++;
+      
       if(info.getFront() == Neighbor.OTHER) {
          return Action.INFECT;
       } else if (info.getFront() == Neighbor.WALL || info.getRight() == Neighbor.WALL) {         
@@ -24,23 +26,27 @@ public class Lion extends Critter {
           return Action.RIGHT;
       } else {
           return Action.HOP;      
-      }
+      }      
    }
+ 
     
-    public Color getColor() {
-       int move = r.nextInt(3);
+    public Color getColor() {      
        
-       if (move == 0) {
-         return Color.RED;
-       } else if (move == 1) {
-         return Color.GREEN;
-       } else {
-         return Color.BLUE;
+       if (count % 3 == 0) {   
+          int move = r.nextInt(3);          
+          if (move == 0) {
+            lionColor = Color.RED;            
+          } else if (move == 1) {
+            lionColor = Color.GREEN;            
+          } else {
+            lionColor = Color.BLUE;
+          }
        }
-    }   
+       return lionColor;
+    }  
+ 
     
     public String toString() {
         return "L";
     }
-
 }
