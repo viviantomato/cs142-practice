@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.util.*;
 
-
 public class Lion extends Critter {
    private Random r;
    private int count;
@@ -12,10 +11,9 @@ public class Lion extends Critter {
       getColor();
    }
    
-   
+   //always infect if an enemy is in front, otherwise if a wall is in front or to the right, then turn left, otherwise if a fellow Lion is in front, then turn right, otherwise hop.
    public Action getMove(CritterInfo info) {
-      count++;
-      
+      count++;     
       if(info.getFront() == Neighbor.OTHER) {
          return Action.INFECT;
       } else if (info.getFront() == Neighbor.WALL || info.getRight() == Neighbor.WALL) {
@@ -27,9 +25,8 @@ public class Lion extends Critter {
       }
    }
    
-   
-   public Color getColor() {
-      
+   //for every three moves, randomly picks one of three colors:RED, GREEN, BLUE
+   public Color getColor() {      
       if (count % 3 == 0) {
          int move = r.nextInt(3);
          if (move == 0) {
@@ -42,7 +39,6 @@ public class Lion extends Critter {
       }
       return lionColor;
    }
-   
    
    public String toString() {
       return "L";

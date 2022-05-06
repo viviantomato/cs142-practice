@@ -11,6 +11,7 @@ public class Bear extends Critter {
       this.polar = polar;  //parameter name same as field name, use this to refer to field, shadowing.
    }
    
+   //if polar bear is true, color set to white; if not, color set to blace.
    public Color getColor() {
       // refer to this polar from fields
       if (polar) {
@@ -20,7 +21,7 @@ public class Bear extends Critter {
       }
    }
    
-   
+   //always infect if an enemy is in front, otherwise hop if possible, otherwise turn left.
    public Action getMove(CritterInfo info) {
       count++;
       if(info.getFront() == Neighbor.OTHER) {
@@ -32,6 +33,7 @@ public class Bear extends Critter {
       }
    }
    
+   // alternate between a slash character (/) and a backslash character (\) starting with a slash
    public String toString() {
       if (count % 2 == 0) {
          display = "/";

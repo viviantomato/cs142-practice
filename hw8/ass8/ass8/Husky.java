@@ -8,8 +8,8 @@ public class Husky extends Critter {
       getColor();
    }
    
-   public Action getMove(CritterInfo info) {
-      
+   //always infect if an enemy is in front, otherwise hop if front is empty, otherwise turn right.
+   public Action getMove(CritterInfo info) {     
       if(info.getFront() == Neighbor.OTHER) {
          countMoves();
          return Action.INFECT;
@@ -26,12 +26,13 @@ public class Husky extends Critter {
       return Color.PINK;
    }
    
+   //every three moves, rotate between displays: "MonkeyEight", "GoodBobo", "Turtle", "CycleBobo".
    public String toString() {
-      if(move <= 3) {
+      if(move <= 10) {
          return "MonkeyEight";
-      } else if (move <= 6) {
+      } else if (move <= 20) {
          return "GoodBobo";
-      } else if (move <= 9) {
+      } else if (move <= 30) {
          return "Turtle";
       } else {
          return "CycleBobo";
@@ -39,7 +40,7 @@ public class Husky extends Critter {
    }
    
    public void countMoves(){
-      if (move == 12){
+      if (move == 40){
          move = 1;
       } else {
          move++;
